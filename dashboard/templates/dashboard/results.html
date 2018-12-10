@@ -19,9 +19,10 @@
 <div class="row">
 
   <div class="col-md-6">
-    <h3>Consomation sur l'année 2017</h3>
-    <div id="stock" style="display: none;">{{ conso_watt }}</div>
+    <h3>Votre consommation d'électricité en <span class="font-weight-bold text-primary">2017</span></h3>
     <hr>
+    <!-- div ayant pour unique utilité le passage des données de consommation de la view au fichier js -->
+    <div id="stock" style="display: none;">{{ conso_watt }}</div>
     <canvas id="myChart" width="400" height="400"></canvas>
   </div>
 
@@ -29,8 +30,8 @@
     <h3>Historique des factures</h3>
     <hr>
     <p>
-      Facture de 2016 : <span class="font-weight-bold text-danger">{{ annual_costs.0 }}</span> euros <br />
-      Facture en 2017 : <span class="font-weight-bold text-danger">{{ annual_costs.1 }}</span> euros
+      Facture de 2016 : <span class="font-weight-bold text-danger">{{ annual_costs.0 }}€</span><br />
+      Facture en 2017 : <span class="font-weight-bold text-danger">{{ annual_costs.1 }}€</span>
     </p>
 
     <h3 style="margin-top: 5%;">Vos caractéristiques énergétiques</h3>
@@ -42,9 +43,9 @@
     {% endif %}
 
     {% if dysfunction_detected %}
-    <p>Une <span class="font-weight-bold text-danger">anomalie</span> a été detectée dans votre consomation (forte variation de consomation d'une année sur l'autre).</p>
+    <p>Une <span class="font-weight-bold text-danger">anomalie</span> a été detectée dans votre consommation (forte variation de consomation d'une année sur l'autre).</p>
     {% else %}
-    <p>Votre consomation est parfaitement nomale.</p>
+    <p>Votre consommation est parfaitement nomale.</p>
     {% endif %}
 
 
@@ -60,5 +61,5 @@
 
 {% block script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="{% static 'dashboard/js/results.js' %}"></script>
+    <script src="{% static 'dashboard/js/results.js' %}" data={{ conso_watt }}></script>
 {% endblock %}
