@@ -1,0 +1,64 @@
+{% extends 'dashboard/results_base.html' %}
+
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'dashboard/css/results.css' %}" media="all"/>
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Mon tableau de bord <span class="text-green">énergie</span></h1>
+    </div>
+</div>
+
+<div class="row">
+
+  <div class="col-md-6">
+    <h3>Consomation sur l'année 2017</h3>
+    <div id="stock" style="display: none;">{{ conso_watt }}</div>
+    <hr>
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+
+  <div class="col-md-6">
+    <h3>Historique des factures</h3>
+    <hr>
+    <p>
+      Facture de 2016 : <span class="font-weight-bold text-danger">{{ annual_costs.0 }}</span> euros <br />
+      Facture en 2017 : <span class="font-weight-bold text-danger">{{ annual_costs.1 }}</span> euros
+    </p>
+
+    <h3 style="margin-top: 5%;">Vos caractéristiques énergétiques</h3>
+    <hr>
+    {% if is_elec_heating %}
+    <p>Votre chauffage est <span class="text-primary">électrique.</span></p>
+    {% else %}
+    <p>Vous n'utilisez pas l'electricité pour vous chauffer.</p>
+    {% endif %}
+
+    {% if dysfunction_detected %}
+    <p>Une <span class="font-weight-bold text-danger">anomalie</span> a été detectée dans votre consomation (forte variation de consomation d'une année sur l'autre).</p>
+    {% else %}
+    <p>Votre consomation est parfaitement nomale.</p>
+    {% endif %}
+
+
+
+  </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script src="{% static 'dashboard/js/results.js' %}"></script>
+{% endblock %}
